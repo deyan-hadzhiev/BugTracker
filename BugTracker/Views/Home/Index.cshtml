@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title.</h1>
+                <h2>@ViewBag.Message</h2>
+            </hgroup>
+        </div>
+    </section>
+}
+<h3>I suggest the following:</h3>
+<ol class="round">
+    <li class="one">
+        <h5>Information on getting started</h5>
+        Read more about this project and it's purpose at the about page: 
+        @Html.ActionLink("About...", "About")
+    </li>
+
+    <li class="two">
+        <h5>Register to start submitting bugs :)</h5>
+        Register @Html.ActionLink("here", "Register", "Account")
+    </li>
+
+    <li class="three">
+        <h5>Contact me if you have additional questions</h5>
+        @Html.ActionLink("Contact", "Contact")
+    </li>
+</ol>

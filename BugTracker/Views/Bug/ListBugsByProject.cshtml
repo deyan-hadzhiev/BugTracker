@@ -1,0 +1,110 @@
+﻿@model PagedList.IPagedList<BugTracker.Models.BugViewModel>
+@{
+    ViewBag.Title = "ListBugsByProject";
+    SelectList projects = ViewBag.ProjectsList;
+}
+
+<h2>List Bugs By Project</h2>
+
+@using (Html.BeginForm("ListBugsByProject", "Bug", new { projectId = projects.SelectedValue, sortOrder = ViewBag.CurrentSortOrder, page = 1 }))
+{
+    <fieldset>
+        <legend class="editor-label">
+            @Html.Label("Select Project")
+        </legend>
+        <div class="editor-field">
+            Select Project: @Html.DropDownList("ProjectId", projects)
+            <input type="submit" value="List" />
+        </div>
+
+    </fieldset>
+}
+<p>
+    @Html.ActionLink("Add New Bug", "Create", new { returnAction = "ListBugsByProject" })
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.ActionLink(Html.DisplayNameFor(model => model.FirstOrDefault().TesterName).ToString(), "ListBugsByProject", new { projectId = projects.SelectedValue, sortOrder = ViewBag.TesterSortParm, page = Model.PageNumber })
+        </th>
+        <th>
+            @Html.ActionLink(Html.DisplayNameFor(model => model.FirstOrDefault().ProjectName).ToString(), "ListBugsByProject", new { projectId = projects.SelectedValue, sortOrder = ViewBag.ProjectSortParm, page = Model.PageNumber })
+        </th>
+        <th>
+            @Html.ActionLink(Html.DisplayNameFor(model => model.FirstOrDefault().DiscoverDate).ToString(), "ListBugsByProject", new { projectId = projects.SelectedValue, sortOrder = ViewBag.DateSortParm, page = Model.PageNumber })
+        </th>
+        <th>
+            @Html.ActionLink(Html.DisplayNameFor(model => model.FirstOrDefault().Priority).ToString(), "ListBugsByProject", new { projectId = projects.SelectedValue, sortOrder = ViewBag.PrioritySortParm, page = Model.PageNumber })
+        </th>
+        <th>
+            @Html.ActionLink(Html.DisplayNameFor(model => model.FirstOrDefault().Status).ToString(), "ListBugsByProject", new { projectId = projects.SelectedValue, sortOrder = ViewBag.StatusSortParm, page = Model.PageNumber })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Description)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TesterName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiscoverDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Priority)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayTextFor(modelItem => item.Description).ToString().Substring(0, (item.Description.Length < 50) ? item.Description.Length : 50)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.BugId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.BugId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.BugId })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<br />
+
+<div>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+    of @Model.PageCount
+
+    @if (Model.HasPreviousPage)
+    {
+        @Html.ActionLink("<<", "ListBugsByProject", new { projectId = projects.SelectedValue, sortOrder = ViewBag.CurrentSortOrder, page = 1 })
+        @Html.Raw(" ");
+        @Html.ActionLink("< Prev", "ListBugsByProject", new { projectId = projects.SelectedValue, sortOrder = ViewBag.CurrentSortOrder, page = Model.PageNumber - 1 })
+    }
+    else
+    {
+        @:<<
+        @Html.Raw(" ");
+        @:< Prev
+    }
+
+    @if (Model.HasNextPage)
+    {
+        @Html.ActionLink("Next >", "ListBugsByProject", new { projectId = projects.SelectedValue, sortOrder = ViewBag.CurrentSortOrder, page = Model.PageNumber + 1 })
+        @Html.Raw(" ");
+        @Html.ActionLink(">>", "ListBugsByProject", new { projectId = projects.SelectedValue, sortOrder = ViewBag.CurrentSortOrder, page = Model.PageCount })
+    }
+    else
+    {
+        @:Next >
+        @Html.Raw(" ")
+        @:>>
+    }
+</div>

@@ -1,0 +1,37 @@
+﻿@model BugTracker.Areas.Admin.Models.DetailsByNameViewModel
+
+@{
+    ViewBag.Title = "Details User";
+}
+
+<h2>Details for User</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <h5 class="error">@ViewBag.Error</h5>
+    
+    <fieldset>
+        <legend>Details for User</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UserName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.UserName)
+            @Html.ValidationMessageFor(model => model.UserName)
+        </div>
+
+        <p>
+            <input type="submit" value="Proceed" />
+        </p>
+    </fieldset>   
+}
+
+<div>
+    @Html.ActionLink("Back To Index", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

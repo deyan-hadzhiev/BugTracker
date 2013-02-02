@@ -1,0 +1,93 @@
+﻿@model PagedList.IPagedList<BugTracker.Models.InfoCardViewModel>
+
+@{
+    ViewBag.Title = "ListAllInfoCards";
+}
+
+<h2>List All Information Cards</h2>
+
+<p>
+    @Html.ActionLink("Sort by User Id", "ListAllInfoCards", new { sortOrder = ViewBag.IdSortParm, page = Model.PageNumber})
+</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                @Html.ActionLink(Html.DisplayNameFor(model => model.FirstOrDefault().UserName).ToString(), "ListAllInfoCards", new { sortOrder = ViewBag.NameSortParm, page = Model.PageNumber })
+            </th>
+            <th>
+                @Html.ActionLink(Html.DisplayNameFor(model => model.FirstOrDefault().NumberOfProjects).ToString(), "ListAllInfoCards", new { sortOrder = ViewBag.ProjectsSortParm, page = Model.PageNumber })
+            </th>
+            <th>
+                @Html.ActionLink(Html.DisplayNameFor(model => model.FirstOrDefault().NumberOfBugs).ToString(), "ListAllInfoCards", new { sortOrder = ViewBag.BugsSortParm, page = Model.PageNumber })
+            </th>
+            <th>
+                @Html.ActionLink(Html.DisplayNameFor(model => model.FirstOrDefault().LastActivity).ToString(), "ListAllInfoCards", new { sortOrder = ViewBag.ActivitySortParm, page = Model.PageNumber })
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().LastAction)
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberOfProjects)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberOfBugs)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastActivity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastAction)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<br />
+
+<div>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+    of @Model.PageCount
+     
+    @if (Model.HasPreviousPage)
+    {
+        @Html.ActionLink("<<", "ListAllInfoCards", new { sortOrder = ViewBag.CurrentSortOrder, page = 1})
+        @Html.Raw(" ");
+        @Html.ActionLink("< Prev", "ListAllInfoCards", new { sortOrder = ViewBag.CurrentSortOrder, page = Model.PageNumber - 1 })
+    }
+    else
+    {
+        @:<<
+        @Html.Raw(" ");
+        @:< Prev
+    }
+     
+    @if (Model.HasNextPage)
+    {
+        @Html.ActionLink("Next >", "ListAllInfoCards", new { sortOrder = ViewBag.CurrentSortOrder, page = Model.PageNumber + 1 })
+        @Html.Raw(" ");
+        @Html.ActionLink(">>", "ListAllInfoCards", new { sortOrder = ViewBag.CurrentSortOrder, page = Model.PageCount })
+    }
+    else
+    {
+        @:Next >
+        @Html.Raw(" ")
+        @:>>
+    }
+</div>
+
+<div>
+    @Html.ActionLink("Back To Index", "Index")
+</div>

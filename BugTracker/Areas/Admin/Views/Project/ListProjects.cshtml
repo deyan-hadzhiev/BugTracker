@@ -1,0 +1,54 @@
+﻿@model List<BugTracker.Areas.Admin.Models.ProjectViewModel>
+
+@{
+    ViewBag.Title = "List Projects";
+}
+
+<h2>List All Projects</h2>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find by Name: @Html.TextBox("searchString")
+        <input type="submit" value="Search"/>
+    </p>
+}
+
+<p>
+    @Html.ActionLink("Create New Project", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().ProjectName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Description)
+        </th>
+        <th>
+            @Html.Display("Actions")
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ProjectId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ProjectId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ProjectId })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<p>
+    @Html.ActionLink("Back To Index", "Index")
+</p>

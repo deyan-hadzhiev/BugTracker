@@ -1,0 +1,474 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BugTrackerModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="BugTrackerModelStoreContainer">
+          <EntitySet Name="Bugs" EntityType="BugTrackerModel.Store.Bugs" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="InfoCards" EntityType="BugTrackerModel.Store.InfoCards" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Projects" EntityType="BugTrackerModel.Store.Projects" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserProfiles" EntityType="BugTrackerModel.Store.UserProfiles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UsersInProjects" EntityType="BugTrackerModel.Store.UsersInProjects" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="webpages_Membership" EntityType="BugTrackerModel.Store.webpages_Membership" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="webpages_Roles" EntityType="BugTrackerModel.Store.webpages_Roles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="webpages_UsersInRoles" EntityType="BugTrackerModel.Store.webpages_UsersInRoles" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Bugs_Projects" Association="BugTrackerModel.Store.FK_Bugs_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Bugs" EntitySet="Bugs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bugs_UserProfile" Association="BugTrackerModel.Store.FK_Bugs_UserProfile">
+            <End Role="UserProfiles" EntitySet="UserProfiles" />
+            <End Role="Bugs" EntitySet="Bugs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InfoCards_UserProfiles" Association="BugTrackerModel.Store.FK_InfoCards_UserProfiles">
+            <End Role="UserProfiles" EntitySet="UserProfiles" />
+            <End Role="InfoCards" EntitySet="InfoCards" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RoleId" Association="BugTrackerModel.Store.fk_RoleId">
+            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserId" Association="BugTrackerModel.Store.fk_UserId">
+            <End Role="UserProfiles" EntitySet="UserProfiles" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersInProjects_InfoCards" Association="BugTrackerModel.Store.FK_UsersInProjects_InfoCards">
+            <End Role="InfoCards" EntitySet="InfoCards" />
+            <End Role="UsersInProjects" EntitySet="UsersInProjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersInProjects_Projects" Association="BugTrackerModel.Store.FK_UsersInProjects_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="UsersInProjects" EntitySet="UsersInProjects" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Bugs">
+          <Key>
+            <PropertyRef Name="BugId" />
+          </Key>
+          <Property Name="BugId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="ProjectId" Type="int" Nullable="false" />
+          <Property Name="DiscoverDate" Type="datetime" Nullable="false" />
+          <Property Name="Priority" Type="varchar" Nullable="false" MaxLength="16" />
+          <Property Name="Status" Type="varchar" Nullable="false" MaxLength="16" />
+          <Property Name="Description" Type="ntext" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InfoCards">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="NumberOfProjects" Type="int" Nullable="false" />
+          <Property Name="NumberOfBugs" Type="int" Nullable="false" />
+          <Property Name="LastActivity" Type="datetime" Nullable="false" />
+          <Property Name="LastAction" Type="ntext" />
+        </EntityType>
+        <EntityType Name="Projects">
+          <Key>
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="ProjectId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="nvarchar" Nullable="false" MaxLength="64" />
+          <Property Name="Description" Type="ntext" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserProfiles">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="64" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="64" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="64" />
+          <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="64" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="24" />
+        </EntityType>
+        <EntityType Name="UsersInProjects">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ProjectId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webpages_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ConfirmationToken" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsConfirmed" Type="bit" />
+          <Property Name="LastPasswordFailureDate" Type="datetime" />
+          <Property Name="PasswordFailuresSinceLastSuccess" Type="int" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="PasswordChangedDate" Type="datetime" />
+          <Property Name="PasswordSalt" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="PasswordVerificationToken" Type="nvarchar" MaxLength="128" />
+          <Property Name="PasswordVerificationTokenExpirationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="webpages_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="webpages_UsersInRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Bugs_Projects">
+          <End Role="Projects" Type="BugTrackerModel.Store.Projects" Multiplicity="1" />
+          <End Role="Bugs" Type="BugTrackerModel.Store.Bugs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectId" />
+            </Principal>
+            <Dependent Role="Bugs">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bugs_UserProfile">
+          <End Role="UserProfiles" Type="BugTrackerModel.Store.UserProfiles" Multiplicity="0..1" />
+          <End Role="Bugs" Type="BugTrackerModel.Store.Bugs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfiles">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Bugs">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InfoCards_UserProfiles">
+          <End Role="UserProfiles" Type="BugTrackerModel.Store.UserProfiles" Multiplicity="1" />
+          <End Role="InfoCards" Type="BugTrackerModel.Store.InfoCards" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfiles">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="InfoCards">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RoleId">
+          <End Role="webpages_Roles" Type="BugTrackerModel.Store.webpages_Roles" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="BugTrackerModel.Store.webpages_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="webpages_Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="webpages_UsersInRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserId">
+          <End Role="UserProfiles" Type="BugTrackerModel.Store.UserProfiles" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="BugTrackerModel.Store.webpages_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfiles">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="webpages_UsersInRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersInProjects_InfoCards">
+          <End Role="InfoCards" Type="BugTrackerModel.Store.InfoCards" Multiplicity="1" />
+          <End Role="UsersInProjects" Type="BugTrackerModel.Store.UsersInProjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InfoCards">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UsersInProjects">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersInProjects_Projects">
+          <End Role="Projects" Type="BugTrackerModel.Store.Projects" Multiplicity="1" />
+          <End Role="UsersInProjects" Type="BugTrackerModel.Store.UsersInProjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectId" />
+            </Principal>
+            <Dependent Role="UsersInProjects">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BugTrackerModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BugTrackerEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Bugs" EntityType="BugTrackerModel.Bug" />
+          <EntitySet Name="InfoCards" EntityType="BugTrackerModel.InfoCard" />
+          <EntitySet Name="Projects" EntityType="BugTrackerModel.Project" />
+          <EntitySet Name="UserProfiles" EntityType="BugTrackerModel.UserProfile" />
+          <EntitySet Name="webpages_Membership" EntityType="BugTrackerModel.webpages_Membership" />
+          <EntitySet Name="webpages_Roles" EntityType="BugTrackerModel.webpages_Roles" />
+          <AssociationSet Name="FK_Bugs_Projects" Association="BugTrackerModel.FK_Bugs_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Bugs" EntitySet="Bugs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bugs_UserProfile" Association="BugTrackerModel.FK_Bugs_UserProfile">
+            <End Role="UserProfiles" EntitySet="UserProfiles" />
+            <End Role="Bugs" EntitySet="Bugs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InfoCards_UserProfiles" Association="BugTrackerModel.FK_InfoCards_UserProfiles">
+            <End Role="UserProfiles" EntitySet="UserProfiles" />
+            <End Role="InfoCards" EntitySet="InfoCards" />
+          </AssociationSet>
+          <AssociationSet Name="webpages_UsersInRoles" Association="BugTrackerModel.webpages_UsersInRoles">
+            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+            <End Role="UserProfiles" EntitySet="UserProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="UsersInProjects" Association="BugTrackerModel.UsersInProjects">
+            <End Role="InfoCard" EntitySet="InfoCards" />
+            <End Role="Project" EntitySet="Projects" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Bug">
+          <Key>
+            <PropertyRef Name="BugId" />
+          </Key>
+          <Property Name="BugId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <Property Name="DiscoverDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Priority" Type="String" Nullable="false" MaxLength="16" Unicode="false" FixedLength="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="16" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Project" Relationship="BugTrackerModel.FK_Bugs_Projects" FromRole="Bugs" ToRole="Projects" />
+          <NavigationProperty Name="UserProfile" Relationship="BugTrackerModel.FK_Bugs_UserProfile" FromRole="Bugs" ToRole="UserProfiles" />
+        </EntityType>
+        <EntityType Name="InfoCard">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfProjects" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfBugs" Type="Int32" Nullable="false" />
+          <Property Name="LastActivity" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastAction" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="UserProfile" Relationship="BugTrackerModel.FK_InfoCards_UserProfiles" FromRole="InfoCards" ToRole="UserProfiles" />
+          <NavigationProperty Name="Projects" Relationship="BugTrackerModel.UsersInProjects" FromRole="InfoCard" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="ProjectId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Bugs" Relationship="BugTrackerModel.FK_Bugs_Projects" FromRole="Projects" ToRole="Bugs" />
+          <NavigationProperty Name="InfoCards" Relationship="BugTrackerModel.UsersInProjects" FromRole="Project" ToRole="InfoCard" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="FirstName" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="LastName" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="24" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Bugs" Relationship="BugTrackerModel.FK_Bugs_UserProfile" FromRole="UserProfiles" ToRole="Bugs" />
+          <NavigationProperty Name="InfoCard" Relationship="BugTrackerModel.FK_InfoCards_UserProfiles" FromRole="UserProfiles" ToRole="InfoCards" />
+          <NavigationProperty Name="webpages_Roles" Relationship="BugTrackerModel.webpages_UsersInRoles" FromRole="UserProfiles" ToRole="webpages_Roles" />
+        </EntityType>
+        <EntityType Name="webpages_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="ConfirmationToken" Type="String" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="IsConfirmed" Type="Boolean" />
+          <Property Name="LastPasswordFailureDate" Type="DateTime" Precision="3" />
+          <Property Name="PasswordFailuresSinceLastSuccess" Type="Int32" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="PasswordChangedDate" Type="DateTime" Precision="3" />
+          <Property Name="PasswordSalt" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="PasswordVerificationToken" Type="String" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="PasswordVerificationTokenExpirationDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="webpages_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="UserProfiles" Relationship="BugTrackerModel.webpages_UsersInRoles" FromRole="webpages_Roles" ToRole="UserProfiles" />
+        </EntityType>
+        <Association Name="FK_Bugs_Projects">
+          <End Role="Projects" Type="BugTrackerModel.Project" Multiplicity="1" />
+          <End Role="Bugs" Type="BugTrackerModel.Bug" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectId" />
+            </Principal>
+            <Dependent Role="Bugs">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bugs_UserProfile">
+          <End Role="UserProfiles" Type="BugTrackerModel.UserProfile" Multiplicity="0..1" />
+          <End Role="Bugs" Type="BugTrackerModel.Bug" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfiles">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Bugs">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InfoCards_UserProfiles">
+          <End Role="UserProfiles" Type="BugTrackerModel.UserProfile" Multiplicity="1" />
+          <End Role="InfoCards" Type="BugTrackerModel.InfoCard" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfiles">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="InfoCards">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="webpages_UsersInRoles">
+          <End Role="webpages_Roles" Type="BugTrackerModel.webpages_Roles" Multiplicity="*" />
+          <End Role="UserProfiles" Type="BugTrackerModel.UserProfile" Multiplicity="*" />
+        </Association>
+        <Association Name="UsersInProjects">
+          <End Type="BugTrackerModel.InfoCard" Role="InfoCard" Multiplicity="*" />
+          <End Type="BugTrackerModel.Project" Role="Project" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BugTrackerModelStoreContainer" CdmEntityContainer="BugTrackerEntities">
+          <EntitySetMapping Name="Bugs">
+            <EntityTypeMapping TypeName="BugTrackerModel.Bug">
+              <MappingFragment StoreEntitySet="Bugs">
+                <ScalarProperty Name="BugId" ColumnName="BugId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="DiscoverDate" ColumnName="DiscoverDate" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InfoCards">
+            <EntityTypeMapping TypeName="BugTrackerModel.InfoCard">
+              <MappingFragment StoreEntitySet="InfoCards">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="NumberOfProjects" ColumnName="NumberOfProjects" />
+                <ScalarProperty Name="NumberOfBugs" ColumnName="NumberOfBugs" />
+                <ScalarProperty Name="LastActivity" ColumnName="LastActivity" />
+                <ScalarProperty Name="LastAction" ColumnName="LastAction" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="BugTrackerModel.Project">
+              <MappingFragment StoreEntitySet="Projects">
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfiles">
+            <EntityTypeMapping TypeName="BugTrackerModel.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfiles">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_Membership">
+            <EntityTypeMapping TypeName="BugTrackerModel.webpages_Membership">
+              <MappingFragment StoreEntitySet="webpages_Membership">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ConfirmationToken" ColumnName="ConfirmationToken" />
+                <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+                <ScalarProperty Name="LastPasswordFailureDate" ColumnName="LastPasswordFailureDate" />
+                <ScalarProperty Name="PasswordFailuresSinceLastSuccess" ColumnName="PasswordFailuresSinceLastSuccess" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PasswordChangedDate" ColumnName="PasswordChangedDate" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="PasswordVerificationToken" ColumnName="PasswordVerificationToken" />
+                <ScalarProperty Name="PasswordVerificationTokenExpirationDate" ColumnName="PasswordVerificationTokenExpirationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_Roles">
+            <EntityTypeMapping TypeName="BugTrackerModel.webpages_Roles">
+              <MappingFragment StoreEntitySet="webpages_Roles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="webpages_UsersInRoles" TypeName="BugTrackerModel.webpages_UsersInRoles" StoreEntitySet="webpages_UsersInRoles">
+            <EndProperty Name="webpages_Roles">
+              <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="UserProfiles">
+              <ScalarProperty Name="UserId" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="UsersInProjects" TypeName="BugTrackerModel.UsersInProjects" StoreEntitySet="UsersInProjects">
+            <EndProperty Name="Project">
+              <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+            </EndProperty>
+            <EndProperty Name="InfoCard">
+              <ScalarProperty Name="UserId" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

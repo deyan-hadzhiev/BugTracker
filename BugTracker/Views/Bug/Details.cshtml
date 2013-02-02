@@ -1,0 +1,62 @@
+﻿@model BugTracker.Models.BugViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details for bug @Html.DisplayFor(model => model.BugId)</h2>
+
+<fieldset>
+    <legend>Bug</legend>
+
+    <div class="display-label">
+         @Html.LabelFor(model => model.DiscoverDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DiscoverDate)
+    </div>
+    <br />
+
+    <div class="display-label">
+         @Html.LabelFor(model => model.TesterName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TesterName)
+    </div>
+    <br />
+
+    <div class="display-label">
+         @Html.LabelFor(model => model.ProjectName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ProjectName)
+    </div>
+    <br />
+
+    <div class="display-label">
+         @Html.LabelFor(model => model.Priority)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Priority)
+    </div>
+    <br />
+
+    <div class="display-label">
+         @Html.LabelFor(model => model.Status)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Status)
+    </div>
+    <br />
+
+    <div class="display-label">
+         @Html.LabelFor(model => model.Description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.BugId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

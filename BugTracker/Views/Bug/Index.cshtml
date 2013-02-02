@@ -1,0 +1,15 @@
+﻿@model List<BugTracker.Models.BugViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Add New Bug", "Create", new { returnAction = "Index" })
+</p>
+
+<p>
+    @Html.ActionLink("List Bugs", "SelectProject")
+</p>

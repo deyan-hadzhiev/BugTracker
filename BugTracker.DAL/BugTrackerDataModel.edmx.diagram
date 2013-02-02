@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b72f72d41b984c68b3afeb560c408869" Name="Diagram1">
+        <EntityTypeShape EntityType="BugTrackerModel.Bug" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BugTrackerModel.InfoCard" Width="1.5" PointX="6.625" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BugTrackerModel.Project" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="BugTrackerModel.UserProfile" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BugTrackerModel.webpages_Membership" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BugTrackerModel.webpages_Roles" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <AssociationConnector Association="BugTrackerModel.FK_Bugs_Projects" ManuallyRouted="false" />
+        <AssociationConnector Association="BugTrackerModel.FK_Bugs_UserProfile" ManuallyRouted="false" />
+        <AssociationConnector Association="BugTrackerModel.FK_InfoCards_UserProfiles" ManuallyRouted="false" />
+        <AssociationConnector Association="BugTrackerModel.webpages_UsersInRoles" ManuallyRouted="false" />
+        <AssociationConnector Association="BugTrackerModel.UsersInProjects" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>@ViewBag.Message</h2>
+</hgroup>
+
+<article>
+    <p>
+        This is a university project, so it's functionality is little restrained. I tried to implement all the required functionality and nothing more.
+    </p>
+    <p>
+        It's purpose is to implement a website, for administering and monitoring bugs on specified projects.
+        All testers can submit and update bugs, on selected project.
+        All testers can view statistics about all the other testers registered on the site, and their last actions.
+        All testers can delete bugs.
+    </p>
+    <p>
+        If you wish to participate in testing this project, I suggest you start submitting bugs ( it's not that important to be real bugs, just to be different than "asdfasd").
+        If you encounter bug in this application, please submit it as bug from the "ASP.NET MVC App" project.
+        If you have any suggestions, for making the website better, please submit them as bugs for the "Suggestions" project.
+    </p>
+    <p>
+        Thank you, for your time. :)
+    </p>
+</article>
+
+<aside>
+    <h3>Aside Title</h3>
+    <p>
+        Links to other information.
+    </p>
+    <ul>
+        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li>@Html.ActionLink("About", "About", "Home")</li>
+        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+    </ul>
+</aside>

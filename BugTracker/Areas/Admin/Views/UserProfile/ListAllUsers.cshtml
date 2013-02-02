@@ -1,0 +1,39 @@
+﻿@model List<BugTracker.Areas.Admin.Models.UserProfileViewModel>
+
+@{
+    ViewBag.Title = "List All Users";
+}
+
+<h2>ListAllUsers</h2>
+
+<p>
+    @Html.ActionLink("Create new User", "AddUser")
+</p>
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Email)
+        </th>
+        <th>
+            @Html.Display("Actions")
+        </th>
+    </tr>
+
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => user.UserName)</td>
+            <td>@Html.DisplayFor(modelItem => user.Email)</td>
+            <td>@Html.ActionLink("Edit", "EditUser", new { id = user.UserId }) |
+                @Html.ActionLink("Details", "DetailsUser", new { id = user.UserId }) |
+                @Html.ActionLink("Delete", "DeleteUser", new { id = user.UserId })</td>
+        </tr>
+    }
+</table>
+<p>
+    @Html.ActionLink("Back to Index", "Index")
+</p>

@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Home</h2>
+
+<div class="mainLinks">
+    <p>@Html.ActionLink("View Users","Index","UserProfile")</p>
+    <p>@Html.ActionLink("View Projects", "Index", "Project")</p>
+</div>

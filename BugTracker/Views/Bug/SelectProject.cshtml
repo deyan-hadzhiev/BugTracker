@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "SelectProject";
+    SelectList projects = ViewBag.ProjectsList;
+}
+
+<h2>SelectProject</h2>
+
+@using (Html.BeginForm("ListBugsByProject", "Bug", new { projectId = projects.SelectedValue }))
+{
+    <fieldset>
+        <legend class="editor-label">
+            @Html.Label("Select Project")
+        </legend>
+        <div class="editor-field">
+            Select Project: @Html.DropDownList("ProjectId", projects)
+            <input type="submit" value="List" />
+        </div>
+
+    </fieldset>
+}

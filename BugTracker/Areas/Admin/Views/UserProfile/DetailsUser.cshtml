@@ -1,0 +1,66 @@
+﻿@model BugTracker.Areas.Admin.Models.UserProfileViewModel
+
+@{
+    ViewBag.Title = "DetailsUser";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Details for user @Html.NameFor(model => model.UserName)</legend>
+
+    <div class="display-label">
+         @Html.LabelFor(model => model.UserId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserId)
+    </div>
+    <br />
+
+    <div class="display-label">
+         @Html.LabelFor(model => model.UserName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserName)
+    </div>
+    <br />
+
+    <div class="display-label">
+         @Html.LabelFor(model => model.FirstName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FirstName)
+    </div>
+    <br />
+
+    <div class="display-label">
+         @Html.LabelFor(model => model.LastName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LastName)
+    </div>
+    <br />
+
+    <div class="display-label">
+         @Html.LabelFor(model => model.Email)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+    <br />
+
+    <div class="display-label">
+         @Html.LabelFor(model => model.PhoneNumber)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PhoneNumber)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "EditUser", new { id = Model.UserId }) |
+    @Html.ActionLink("Delete", "DeleteUser", new{id = Model.UserId})
+</p>
+<p>
+    @Html.ActionLink("Back To Index", "Index")|
+    @Html.ActionLink("Back To List", "ListAllUsers")
+</p>

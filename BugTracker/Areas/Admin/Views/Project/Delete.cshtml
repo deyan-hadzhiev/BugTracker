@@ -1,0 +1,39 @@
+﻿@model BugTracker.Areas.Admin.Models.ProjectViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Project</legend>
+
+    <div class="display-label">
+         @Html.LabelFor(model => model.ProjectName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ProjectName)
+    </div>
+    <br />
+
+    <div class="display-label">
+         @Html.LabelFor(model => model.Description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" />
+    </p>
+}
+<p>
+    @Html.ActionLink("Details", "Details", new { id = Model.ProjectId })
+</p>
+<p>
+    @Html.ActionLink("Back to Index", "Index") |
+    @Html.ActionLink("Back to List", "ListProjects")
+</p>

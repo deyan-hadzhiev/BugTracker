@@ -1,0 +1,34 @@
+﻿@model BugTracker.Areas.Admin.Models.ProjectViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Project</legend>
+
+    <div class="display-label">
+         @Html.LabelFor(model => model.ProjectName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ProjectName)
+    </div>
+    <br />
+
+    <div class="display-label">
+         @Html.LabelFor(model => model.Description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ProjectId }) |
+    @Html.ActionLink("Delete", "Delete", new{ id = Model.ProjectId})
+</p>
+<p>
+    @Html.ActionLink("Back to Index", "Index") |
+    @Html.ActionLink("Back to List", "ListProjects")
+</p>
